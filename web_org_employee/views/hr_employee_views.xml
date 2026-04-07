@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_employee_view_org" model="ir.ui.view">
+            <field name="name">hr.employee.view.org</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <org title_field="name"
+                     parent_field="all_parent_ids"
+                     icon="fa-sitemap"
+                     node_width="200"
+                     node_height="120"
+                     padding="20"
+                     inverted="1"
+                >
+                    <field name="name"/>
+                    <field name="job_title"/>
+                    <templates>
+                        <t t-name="org-box">
+                            <div class="o_org_node_img_wrap">
+                                <img t-attf-src="/web/image/hr.employee/{{record.data.id}}/avatar_128"
+                                     t-att-alt="record.data.name"
+                                     class="o_org_node_img"
+                                     loading="lazy"
+                                />
+                            </div>
+                            <div class="o_org_node_title w-100 text-truncate">
+                                <field name="name" class="h4"/>
+                            </div>
+                            <div class="o_org_node_subtitle">
+                                <field name="job_title"/>
+                            </div>
+                        </t>
+                    </templates>
+                </org>
+
+            </field>
+        </record>
+
+        <record id="act_hr_employee_org_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="48"/>
+            <field name="view_mode">org</field>
+            <field name="act_window_id" ref="hr.open_view_employee_list_my"/>
+        </record>
+
+    </data>
+</odoo>
