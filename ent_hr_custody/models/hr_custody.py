@@ -172,53 +172,51 @@ class HrCustody(models.Model):
 
     def renew_approve(self):
         """Function for renew approve button"""
-        for custody in self.env['hr.custody'].search(
-                [('custody_name', '=', self.custody_name.id)]):
-            if custody.state == "approved":
-                raise UserError(_("Custody is not available now"))
+       ##   for custody in self.env['hr.custody'].search(
+       #         [('custody_name', '=', self.custody_name.id)]):
+       #     if custody.state == "approved":
+      #          raise UserError(_("Custody is not available now"))
         self.return_date = self.renew_date
         self.renew_date = ''
         self.state = 'approved'
 
     def renew_refuse(self):
         """Function for renew refuse button """
-        for custody in self.env['hr.custody'].search(
-                [('custody_name', '=', self.custody_name.id)]):
-            if custody.state == "approved":
-                raise UserError(_("Custody is not available now"))
+    ##            [('custody_name', '=', self.custody_name.id)]):
+    #        if custody.state == "approved":
+     #           raise UserError(_("Custody is not available now"))
         self.renew_date = ''
         self.state = 'approved'
 
     def approve(self):
-        """Function for approve button"""
-        if self.custody_name.property_selection == 'empty':
-            for custody in self.env['hr.custody'].search(
-                    [('custody_name', '=', self.custody_name.id)]):
-                if custody.state == "approved":
-                    raise UserError(_("Custody is not available now"))
-            self.state = 'approved'
-        else:
-            if self.custody_name.product_id.qty_available > 0:
-                self.state = 'approved'
-            else:
-                raise UserError(_("Product is not available now"))
-            if self.state == 'approved':
-                rec = self.env['stock.quant'].search(
-                    [('product_id', '=', self.custody_name.product_id.id),
-                     ('location_id', '=', self.custody_name.location_id.id)])
-                rec.quantity = \
-                    self.custody_name.product_id.qty_available - self.quantity
+    #    if self.custody_name.property_selection == 'empty':
+    #        for custody in self.env['hr.custody'].search(
+     #               [('custody_name', '=', self.custody_name.id)]):
+    #            if custody.state == "approved":
+      #              raise UserError(_("Custody is not available now"))
+    #        self.state = 'approved'
+   #     else:
+   #         if self.custody_name.product_id.qty_available > 0:
+         self.state = 'approved'
+   #         else:
+  #              raise UserError(_("Product is not available now"))
+  #          if self.state == 'approved':
+   #             rec = self.env['stock.quant'].search(
+   #                 [('product_id', '=', self.custody_name.product_id.id),
+   #                  ('location_id', '=', self.custody_name.location_id.id)])
+    #            rec.quantity = \
+   #                 self.custody_name.product_id.qty_available - self.quantity
 
     def set_to_return(self):
         """Function for set to return button"""
         self.state = 'returned'
-        if self.state == 'returned':
-            m_dia = self.env['stock.quant'].search(
-                [('product_id', '=', self.custody_name.product_id.id),
-                 ('location_id', '=', self.custody_name.location_id.id)])
-            m_dia.quantity = \
-                self.custody_name.product_id.qty_available + self.quantity
-        self.return_date = date.today()
+    #    if self.state == 'returned':
+    #        m_dia = self.env['stock.quant'].search(
+    #            [('product_id', '=', self.custody_name.product_id.id),
+    #             ('location_id', '=', self.custody_name.location_id.id)])
+    #        m_dia.quantity = \
+    #            self.custody_name.product_id.qty_available + self.quantity
+    #    self.return_date = date.today()
 
     @api.constrains('return_date')
     def validate_return_date(self):
