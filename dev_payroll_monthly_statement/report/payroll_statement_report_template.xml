@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2015 DevIntelle Consulting Service Pvt.Ltd (<http://www.devintellecs.com>).
+
+For Module Support : devintelle@gmail.com  or Skype : devintelle
+ -->
+<odoo>
+    <template id="main_tmpl1_dev_payroll_monthly_statement">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size:11px;">
+                <style>
+                    thead{display: table-header-group}
+                    tfoot{display: table-row-group}
+                    tr{page-break-inside: avoid}
+                </style>
+                <t t-if="o.filter_by=='employee'">
+                    <t t-if="len(o.employee_ids)==1">
+                        <div style="font-size: 14px;">
+                            <b>Employee :</b>
+                            <span t-esc="o.employee_ids.name"/>
+                            <br/>
+                            <t t-if="o.employee_ids.barcode">
+                                <b>Badge :</b>
+                                <span t-esc="o.employee_ids.barcode"/>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+                <h3>
+                    <center>Payroll Statement Report</center>
+                </h3>
+                <div class="row">
+                    <div class="col-6 pull left">
+                        <b>From</b>&#160;:&#160;
+                        <span t-esc="date_conversion(o.start_date)"/>
+                        <br/>
+                        <b>To</b>&#160;:&#160;
+                        <span t-esc="date_conversion(o.end_date)"/>
+                    </div>
+                    <div class="col-6 text-right"></div>
+                </div>
+                <span t-set="rule_list" t-value="o.get_rule_list()"/>
+                <span t-set="month_wise_data" t-value="o.get_month_wise_data(rule_list)"/>
+                <table width="100%" style="table-layout: fixed;margin-top: 5px;" class="table table-condensed">
+                    <thead>
+                        <tr style="word-wrap: break-word;line-height: 12px;">
+                            <th width="4%" style="border-bottom: 2px solid black;border-top: 1px solid white;">Sr.</th>
+                            <th width="11%" style="border-bottom: 2px solid black;border-top: 1px solid white;">Month</th>
+                            <t t-foreach="rule_list" t-as="rule">
+                                <th width="*" style="border-bottom: 2px solid black;border-top: 1px solid white;text-align:right;">
+                                    <span t-esc="rule"/>
+                                </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <span t-set="sr_no" t-value="1"/>
+                        <tr style="word-wrap: break-word;line-height: 12px;" t-foreach="month_wise_data" t-as="m_date">
+                            <td width="4%" style="border-bottom: 1px solid #E2DDDC;">
+                                <span t-esc="sr_no"/>
+                                <span t-set="sr_no" t-value="sr_no+1"/>
+                            </td>
+                            <th width="11%" style="border-bottom: 1px solid #E2DDDC;">
+                                <span t-esc="get_month_name(m_date)"/>
+                            </th>
+                            <t t-foreach="month_wise_data[m_date]" t-as="mw_rule">
+                                <td width="*" style="border-bottom: 1px solid #E2DDDC;text-align: right;">
+                                    <span t-esc="'{0:,.2f}'.format(o.get_rule_total(mw_rule, m_date))"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr style="word-wrap: break-word;line-height: 12px;">
+                            <th colspan="2" style="border-bottom: 1px solid #E2DDDC;text-align: center;">
+                                Total
+                            </th>
+                            <t t-foreach="rule_list" t-as="code_name">
+                                <td width="*" style="border-bottom: 1px solid #E2DDDC;text-align: right;">
+                                    <span t-esc="'{0:,.2f}'.format(o.get_all_total(code_name))"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="tmpl1_prl_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="dev_payroll_monthly_statement.main_tmpl1_dev_payroll_monthly_statement"/>
+            </t>
+        </t>
+    </template>
+</odoo>
