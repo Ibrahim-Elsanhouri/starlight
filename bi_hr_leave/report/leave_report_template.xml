@@ -7,16 +7,16 @@
 			<t t-if="len(docs) > 1">
 				<div class="page">
 						<table class="table table-condensed">
-						<h2> Requested Leaves</h2>
+						<h2> طلبات الاجازة </h2>
 							<thead>
 								<tr>
-									<th>Employee Name</th>
-									<th>Type</th>
-									<th>Description</th>
-									<th>Period</th>
-									<th>Days</th>
-									<th>Apply Date</th>
-									<th>Status</th>
+									<th>اسم الموظف</th>
+									<th>نوع الاجازة</th>
+									<th>الوصف</th>
+									<th>الفترة</th>
+									<th>الأيام</th>
+									<th>تاريخ التقديم</th>
+									<th>الحالة</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -53,11 +53,11 @@
 			<t t-if="len(docs) == 1">
 				<div class="page">
 						<t t-foreach="docs" t-as="doc">
-						<h2> Employee Details</h2>
-						<p>Name = <span t-field="doc.employee_id"/></p>
-						<p>Position = <span t-field="doc.employee_id.job_id"/></p>
-						<p>Department = <span t-field="doc.employee_id.department_id"/></p>
-						<p>Email id = <span t-field="doc.employee_id.work_email"/></p>
+						<h2>بيانات الموظف</h2>
+						<p>الاسم = <span t-field="doc.employee_id"/></p>
+						<p>المسمى الوظيفي = <span t-field="doc.employee_id.job_id"/></p>
+						<p>القسم = <span t-field="doc.employee_id.department_id"/></p>
+						<p>البريد الالكتروني= <span t-field="doc.employee_id.work_email"/></p>
 						<table class="table table-condensed">
 						<tr class="border-left border-right">
 							<td style="background-color:#08A0B9 !important;" class="border-right">Type</td> <td><span t-field="doc.holiday_status_id"/></td>
@@ -79,12 +79,12 @@
 						</tr>
 						</table>
 						<br/>
-						<h2 style="color:#08A0B9 !important;"> Manager Response :</h2>
+						<h2 style="color:#08A0B9 !important;"> ملاحظات المدير المباشر  :</h2>
 						<br/><br/>
 						<br/>
 						<table>
 						<tr width="100%" >
-							<td style="border-top: solid !important;" width="20%"> Manager</td>
+							<td style="border-top: solid !important;" width="20%"> المدير المباشر</td>
 							<td width="60%"></td>
 							<td style="border-top: solid !important;" width="20%"> <span t-field="doc.employee_id"/> <br/> <span t-field="doc.employee_id.job_id"/></td>
 						</tr>
