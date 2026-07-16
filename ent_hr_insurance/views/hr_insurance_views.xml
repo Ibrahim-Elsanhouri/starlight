@@ -19,11 +19,11 @@
                             <div>
                                 <field name="date_from" class="oe_inline"
                                        on_change="1"
-                                       modifiers="{'readonly': [['state', 'not in', ['draft']]], 'required': true}"/>
+                                       />
                                 -
                                 <field name="date_to" class="oe_inline"
                                        on_change="1"
-                                       modifiers="{'readonly': [['state', 'not in', ['draft']]], 'required': true}"/>
+                                       />
                             </div>
                         </group>
                         <group>

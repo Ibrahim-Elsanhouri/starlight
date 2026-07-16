@@ -38,16 +38,16 @@ class HRInsurance(models.Model):
     policy_id = fields.Many2one('insurance.policy', string='Policy',
                                 required=True, help="Policy")
     amount = fields.Float(string='Premium', required=True, help="Policy amount")
-    sum_insured = fields.Float(string="Sum Insured", required=True,
+    sum_insured = fields.Float(string="Sum Insured",
                                help="Insured sum")
     policy_coverage = fields.Selection(
         [('monthly', 'Monthly'), ('yearly', 'Yearly')],
         required=True, default='monthly',
         string='Policy Coverage', help="During of the policy")
     date_from = fields.Date(string='Date From',
-                            default=time.strftime('%Y-%m-%d'), readonly=True,
+                            default=time.strftime('%Y-%m-%d'),
                             help="Start date")
-    date_to = fields.Date(string='Date To', readonly=True, help="End date",
+    date_to = fields.Date(string='Date To', help="End date",
                           default=str(
                               datetime.now() + relativedelta.relativedelta(
                                   months=+1, day=1, days=-1))[:10])
